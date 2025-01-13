@@ -1,0 +1,13 @@
+#this is a generic service loading mechanism in java projects
+#spock-core has been added as a depenedency in the pom.xml
+#check the spock-core dependency under external dependencies in the project explorer window
+#it has IGlobalExtension interface under org.spockframework.runtime.extension
+#This interface has been implemented in the support.myspock.CustomGloablExtension class
+#a file with its name as the full path of IGlobalExtension iterface is created
+#in the file, the path to the actual implementation of the interface must be included
+#in this case, it is - support.myspock.CustomGlobalExtension
+#this file is then placed under META-INF/services folder under resouces directory
+#based on this setup, CustomGloablExtension class will be used everywhere
+#such a setup is possible only for interfaces or abstract classes, not concrete classes
+
+support.myspock.CustomGlobalExtension

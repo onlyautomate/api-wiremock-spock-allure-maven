@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPattern": "/api/product\\?category=([1-9][0-9])",
+    "headers": {
+      "Content-Type": {
+        "equalTo": "application/json"
+      },
+      "Accept": {
+        "equalTo": "*/*"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": "[{{#each parameters.products}} {\"id\": \"{{this.id}}\", \"name\": \"{{this.name}}\", \"description\": \"{{this.description}}\", \"image\": \"{{this.image}}\", \"price\": \"{{this.price}}\", \"createdAt\": \"{{this.createdAt}}\", \"updatedAt\": \"{{this.updatedAt}}\" } {{#unless @last}},{{/unless}} {{/each}}]",
+    "transformers": [
+      "transform-product-list-template",
+      "response-template"
+    ]
+  }
+}

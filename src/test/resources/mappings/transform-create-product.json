@@ -1,0 +1,82 @@
+{
+  "mappings": [
+    {
+      "scenarioName": "Category-Without-Product",
+      "requiredScenarioState": "Started",
+      "request": {
+        "method": "GET",
+        "urlPattern": "/api/product\\?category=([1-9][0-9][0-9])",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer ecvt.*"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "[]",
+        "transformers": [
+          "create-product-response-transformer-template",
+          "response-template"
+        ]
+      }
+    },
+    {
+      "scenarioName": "Category-Without-Product",
+      "requiredScenarioState": "Started",
+      "newScenarioState": "Product-Added",
+      "request": {
+        "method": "POST",
+        "url": "/api/product",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer ecvt.*"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": "$[?(@.name && @.description && @.image && @.price && @.categoryId)]"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\n  \"id\": \"{{randomValue length=3 type='NUMERIC'}}\",\n  \"name\": \"{{jsonPath request.body '$.name'}}\",\n  \"description\": \"{{jsonPath request.body '$.description'}}\",\n  \"image\": \"{{jsonPath request.body '$.image'}}\",\n  \"price\": \"{{jsonPath request.body '$.price'}}\",\n  \"categoryId\": \"{{jsonPath request.body '$.categoryId'}}\",\n  \"createdAt\": \"{{now}}\",\n  \"updatedAt\": \"{{now}}\"\n}",
+        "transformers": [
+          "transform-create-product-template",
+          "response-template"
+        ]
+      }
+    },
+    {
+      "scenarioName": "Category-Without-Product",
+      "requiredScenarioState": "Product-Added",
+      "request": {
+        "method": "GET",
+        "urlPattern": "/api/product\\?category=([1-9][0-9][0-9])",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer ecvt.*"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "to be tranformed",
+        "transformers": [
+          "transform-create-product-template",
+          "response-template"
+        ]
+      }
+    }
+  ]
+}

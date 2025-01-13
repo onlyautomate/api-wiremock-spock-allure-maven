@@ -1,0 +1,10 @@
+{
+  "id": "{{request.path.[2]}}",
+  "name": "{{parameters.name}}",
+  "description": "{{parameters.description}}",
+  "image": "{{parameters.image}}",
+  "price": "{{parameters.price}}",
+  "categoryId": "{{parameters.categoryId}}",
+  "createdAt": "{{parameters.createdAt}}",
+  "updatedAt": "{{parameters.updatedAt}}"
+}
